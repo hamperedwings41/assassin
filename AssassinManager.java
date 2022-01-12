@@ -1,11 +1,20 @@
+import java.util.*;
+
 public class AssassinManager {
-    public AssassinManager(list<String> names)
+	private AssassinNode front;
+	private Node previous;
+    public AssassinManager(List<String> names)
     {
-    	
+    	front  = null;
+    	for(String name : names)
+    	{
+    		new AssassinNode(name);
+    	}
     }
     
     public String killring()
     {
+    	
 		return null;
     	
     }
@@ -27,13 +36,25 @@ public class AssassinManager {
     
     public boolean isGameOver()
     {
+    	if(front.next == null)
+    	{
+    		return true;
+    	}
     	return false;
     }
     
     public String winner()
     {
+    	if(front.next == null)
+    	{
+    		return front.value;
+    	}
     	return null;
     }
     
+    public void Kill(String name)
+    {
+    	
+    }
 
 }
