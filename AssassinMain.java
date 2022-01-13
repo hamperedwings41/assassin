@@ -55,7 +55,7 @@ public class AssassinMain {
         while (!manager.isGameOver()) {
             oneKill(console, manager);
         }
-
+        manager.killRing();
         // report who won
         System.out.println("Game was won by " + manager.winner());
         System.out.println("Final graveyard is as follows:");
