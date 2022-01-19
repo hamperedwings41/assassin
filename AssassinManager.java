@@ -1,5 +1,5 @@
-public class AssassinManager {
-   import java.util.List;
+
+ import java.util.List;
 
 public class AssassinManager {
     // YOUR CODE GOES HERE
@@ -28,24 +28,27 @@ public class AssassinManager {
 	}
 	
 	public String graveyard() {
-		String  bob = "";
-		AssassinNode b = Grave;
-		 if(b==null) {
-			 return "";
-		 }
-		 while(b.next!=null) {
-			 bob += b.name;
-		 }
+		if(Grave == null)
+			return "Empty";
 		
-		return "";
+		String r = "";
+		
+		AssassinNode f = Grave;
+		while(f != null) {
+			r += f.name + "\n";
+			f = f.next;
+		}
+		
+		return r;
 	}
 	
 	public boolean killRingContains(String name)
 	{
 		AssassinNode f = front;
+		
 		while(f != null)
 		{
-			if(f.name == name )
+			if(f.name.toLowerCase().equals(name.toLowerCase()))
 			{
 				return true;
 			}
@@ -59,7 +62,7 @@ public class AssassinManager {
 		AssassinNode f = Grave;
 		while(f != null)
 		{
-			if(f.name == name )
+			if(f.name.toLowerCase().equals(name.toLowerCase()))
 			{
 				return true;
 			}
@@ -87,7 +90,50 @@ public class AssassinManager {
     }
     
 	public void kill(String name)
-	{
+	{	
+		AssassinNode p = front;
 		
+		if(front.name.toLowerCase().equals(name.toLowerCase())) {
+			if(Grave == null) {
+				Grave = new AssassinNode(name,null); // If grave is empty make a new one.
+				
+				front = front.next;
+				
+			} else {
+				front = front.next;
+				
+				p.next = Grave;
+				Grave = p;
+				
+				AssassinNode q = front;
+			}
+		} else {
+			if(front.next == null)
+				throw new IllegalStateException();	// Check if game is over.
+			
+			while(p.next != null && !p.next.name.toLowerCase().equals(name.toLowerCase())) { // Goes through names, stops when node with name is next.
+				p = p.next;
+			}
+			
+			if(p.next == null)
+				throw new IllegalArgumentException(); // Check if name has been found.
+			
+			AssassinNode f = p.next; // Node storing the victim.
+			
+			if(p.next.next != null) // Takes victim out of the kill ring.
+				p.next = p.next.next;
+			else
+				p.next = null;
+			
+			if(Grave == null) {
+				Grave = new AssassinNode(name,null); // If grave is empty make a new one.
+			} else {
+				f.next = Grave;
+				Grave = f; // Replace front of grave.
+			}
+		}
+			
+			
+			
+		}
 	}
-}
